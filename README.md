@@ -53,7 +53,7 @@ Fleet.command do
     before_start :kill, :rm, :pull
     start        run: { p: '80:80' }
 
-    start        '/usr/bin/docker run -p 80:80 -v /mount/data:/mount/data --name whatever container
+    start        '/usr/bin/docker run -p 80:80 -v /mount/data:/mount/data --name whatever container'
     after_start  'cap fleet:available'
     before_stop  :stop
     after_stop   'cap fleet:unavailble'
