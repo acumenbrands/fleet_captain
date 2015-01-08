@@ -6,7 +6,6 @@ describe FleetCaptain::UnitFile do
     let(:unit_file) { <<-UNIT.strip_heredoc
       [Unit]
       Description=Hello World
-      Name=hello_world
       After=docker.service
       Requires=docker.service
 
@@ -21,7 +20,7 @@ describe FleetCaptain::UnitFile do
     UNIT
     }
 
-    subject { FleetCaptain::UnitFile.parse(unit_file) }
+    subject { FleetCaptain::UnitFile.parse('hello_world', unit_file) }
 
     it 'creates a FleetCaptain::Service object from a unit file' do
       is_expected.to be_a FleetCaptain::Service

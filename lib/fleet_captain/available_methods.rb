@@ -1,7 +1,6 @@
 module FleetCaptain
   UNIT_DIRECTIVES = %w(
     Description
-    Name
     After
     Requires
   )

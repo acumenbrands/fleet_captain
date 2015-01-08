@@ -2,7 +2,6 @@ require 'fleet'
 require 'forwardable'
 require 'net/ssh'
 require 'thread'
-require 'sshkit/dsl'
 
 module FleetCaptain
   class FleetClient
@@ -14,7 +13,7 @@ module FleetCaptain
     attr_reader :client, :queue, :cluster
 
     def initialize(cluster, fleet_endpoint: "http://localhost:10001",
-                           key_file: '~/.ssh/id_rsa')
+                            key_file: '~/.ssh/id_rsa')
       @cluster  = cluster 
       @client   = Fleet.new(fleet_api_url: fleet_endpoint, adapter: :excon)
       @key_file = key_file
@@ -25,12 +24,15 @@ module FleetCaptain
     #
     def actual
       return @actual if @actual
-      instances = FleetCaptain.cloud_client.new(cluster).instances
       connect(instances.first.public_dns_name)
       lead_instance = instances.find { |instance|
         lead_machine['clientURL'].include? instance.private_ip_address
       }
       lead_instance.public_dns_name
+    end
+
+    def instances
+      @instances ||= FleetCaptain.cloud_client.new(cluster).instances
     end
 
     def connect(host = @actual)
@@ -98,7 +100,7 @@ module FleetCaptain
     end
 
     def running?(service)
-      check_status(service, :active_state, 'running')
+      check_status(service, :active_state, 'active') && check_status(service, :sub_state, 'running')
     end
 
     # The node key has a nodes key, which has a list of machines.

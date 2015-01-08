@@ -26,32 +26,47 @@ module FleetCaptain
       Commands::Docker
     end
 
-    def self.from_unit(text)
-      FleetCaptain::UnitFile.parse(text)
+    def self.from_unit(name, text)
+      FleetCaptain::UnitFile.parse(name, text)
     end
 
     def self.define_attributes(methods)
       methods.each do |directive|
         method_name = directive.underscore
-        attr_reader method_name
         define_attribute_methods(method_name)
       end
     end
 
-    def attribute_concat(attr, *values)
+    def attribute(attr)
+      if attribute_multiple?(attr)
+        instance_variable_get("@#{attr}") || instance_variable_set("@#{attr}", [])
+      else
+        instance_variable_get "@#{attr}"
+      end
+    end
+
+    def attribute_concat(attr, *values, failable: false)
       if send("#{attr}_multiple?")
-        send(attr).concat(to_command(values))
+        send(attr).concat(to_command(values, failable))
       else
         send("#{attr}=", values.first)
       end
     end
 
-    def attribute=(attr, value)
-      new_value = to_command(value)
+    def attribute=(attr, value, failable: false)
+      new_value = to_command(value, failable)
       unless [new_value, nil].include?(send(attr))
         send("#{attr}_will_change!")
       end
       instance_variable_set "@#{attr}", new_value
+    end
+
+    def failable_attribute=(attr, value)
+      attribute(attr, value, failable: true)
+    end
+
+    def failable_attribute_concat(attr, *values)
+      attribute_concat(attr, *values, failable: true)
     end
 
     def attribute_multiple?(attr)
@@ -63,6 +78,9 @@ module FleetCaptain
     attribute_method_suffix '_concat'
     attribute_method_suffix '_multiple?'
     attribute_method_suffix '='
+    attribute_method_affix  prefix: 'failable_', suffix: '='
+    attribute_method_affix  prefix: 'failable_', suffix: 'concat'
+
     define_attributes(UNIT_DIRECTIVES)
     define_attributes(SERVICE_DIRECTIVES)
     define_attributes(XFLEET_DIRECTIVES)
@@ -145,8 +163,8 @@ module FleetCaptain
       Digest::SHA1.hexdigest(to_unit)
     end
 
-    def to_command(command)
-      case command
+    def to_command(command, failable = false)
+      command_string = case command
       when NilClass
         nil
       when String
@@ -156,6 +174,7 @@ module FleetCaptain
       when Array
         command.map { |v| to_command(v) }.flatten
       end
+      failable ? "-" + command_string : command_string
     end
   end
 end

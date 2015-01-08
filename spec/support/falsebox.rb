@@ -11,6 +11,8 @@ shared_context 'units' do
       s.after = 'docker.service'
       s.requires = 'docker.service'
       s.container = 'busybox'
+      s.before_start = :stop
+      s.before_start_concat :remove
       s.start = [run: '/bin/sh -c "while true; do echo \'Hit CTRL+C\'; sleep 1; done"']
       s.description = "The box which runs"
     end
@@ -19,7 +21,6 @@ shared_context 'units' do
   let(:truebox) { FleetCaptain::Service.from_unit <<-UNIT_FILE.strip_heredoc
                   [Unit]
                   Description=The box of truth.
-                  Name=truebox
                   After=docker.service
                   Requires=docker.service
                   

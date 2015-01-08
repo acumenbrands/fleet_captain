@@ -98,7 +98,6 @@ describe FleetCaptain::FleetClient do
       end
 
       it 'is true' do
-        require 'pry'; binding.pry
         expect { subject.running?(runbox) }.to become(true).within(5)
       end
     end
