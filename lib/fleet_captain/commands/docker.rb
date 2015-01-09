@@ -3,10 +3,10 @@ require 'fleet_captain/commands/hash_options'
 module FleetCaptain
   module Commands
     class Docker
-      attr_reader :container
+      attr_reader :service
 
-      def initialize(container)
-        @container = container
+      def initialize(service)
+        @service = service
       end
 
       def to_command(command)
@@ -22,9 +22,9 @@ module FleetCaptain
       def run_command(parsed_command)
         [ "/usr/bin/docker",
           parsed_command.action,
-          "--name #{container.container_name}",
+          "--name #{service.container_name}",
           parsed_command.params,
-          container.container,
+          service.container,
           parsed_command.commands ].join(" ").squish
       end
 
@@ -32,22 +32,17 @@ module FleetCaptain
         [ "/usr/bin/docker",
           parsed_command.action,
           parsed_command.params,
-          container.container_name ].join(" ").squish
+          service.container_name ].join(" ").squish
       end
 
       def parse(command)
         case command
         when String, Symbol
-          [ yield(HashOptions.new(command.to_s)) ]
+          yield(HashOptions.new(command.to_s))
         when Hash
-          command.map { |k, args| 
-            yield HashOptions.create(k => args)
-            # Array wrap implicitly converts hashes to arrays.  not what we
-            # want so do it by hand.
-          }
+          yield HashOptions.create(k => args)
         end
       end
-
     end
   end
 end
