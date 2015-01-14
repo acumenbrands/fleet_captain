@@ -38,15 +38,6 @@ module FleetCaptain
         ["cap fleet:unavailable[%n]"]
       end
 
-      # unit are assigned names based on the
-      # sha1-hash of their unit file. if you have enough
-      # unit files it's possible you can have a hash collision
-      # in the first part of that hash. you can increase
-      # this number if you find that happening.
-      config_accessor :hash_slice_length do
-        6
-      end
-
       attr_reader :service
 
       def self.build(name, &block)

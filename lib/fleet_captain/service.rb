@@ -12,8 +12,23 @@ require 'fleet'
 
 module FleetCaptain
   class Service
+    class ServiceNotFound < StandardError; end
+
     include ActiveModel::AttributeMethods
     include ActiveModel::Dirty
+    include FleetCaptain::Service::Attributes
+    include ActiveSupport::Configurable
+
+    # unit are assigned names based on the
+    # sha1-hash of their unit file. if you have enough
+    # unit files it's possible you can have a hash collision
+    # in the first part of that hash. you can increase
+    # this number if you find that happening.
+    config_accessor(:hash_slice_length) { 6 }
+    config_accessor(:container_type)    { 'docker' }
+
+    attr_accessor :container, :hash_slice_length, :instances
+    attr_reader :name
 
     def self.services
       @services ||= Set.new
@@ -23,67 +38,13 @@ module FleetCaptain
       services.find { |s| s.name == key || s.name == key + "@" }
     end
 
-    # TODO move me to the config
-    def self.container_type
-      'docker'
+    def self.find(key)
+      self[key] or raise ServiceNotFound
     end
 
     def self.from_unit(name, text)
       FleetCaptain::UnitFile.parse(name, text)
     end
-
-    def self.define_attributes(methods)
-      methods.each do |directive|
-        method_name = directive.underscore
-        define_attribute_methods(method_name)
-      end
-    end
-
-    def attribute(attr)
-      if attribute_multiple?(attr)
-        instance_variable_get("@#{attr}") || instance_variable_set("@#{attr}", [])
-      else
-        instance_variable_get "@#{attr}"
-      end
-    end
-
-    def attribute_concat(attr, *values, failable: false)
-      send("#{attr}_will_change!") unless values.empty?
-
-      if send("#{attr}_multiple?")
-        send(attr).concat(to_command(values, failable))
-      else
-        send("#{attr}=", values.first)
-      end
-    end
-
-    def attribute=(attr, value, failable: false)
-      new_value = to_command(value, failable)
-      unless [new_value, nil].include?(send(attr))
-        send("#{attr}_will_change!")
-      end
-
-      if attribute_multiple?(attr)
-        instance_variable_set "@#{attr}", [new_value]
-      else
-        instance_variable_set "@#{attr}", new_value
-      end
-    end
-
-    def failable_attribute=(attr, value)
-      send('attribute=',attr, value, failable: true)
-    end
-
-    def failable_attribute_concat(attr, *values)
-      attribute_concat(attr, *values, failable: true)
-    end
-
-    def attribute_multiple?(attr)
-      FleetCaptain.multi_value_directives.include?(attr)
-    end
-
-    attr_accessor :container, :hash_slice_length, :instances
-    attr_reader   :name
 
     attribute_method_suffix '_concat'
     attribute_method_suffix '_multiple?'
@@ -101,16 +62,16 @@ module FleetCaptain
     alias_attribute :reload,        :exec_reload
     alias_attribute :stop,          :exec_stop
     alias_attribute :after_stop,    :exec_stop_post
-
-    def initialize(service_name, hash_slice_length: 6)
+    
+    
+    def initialize(service_name)
       @name = service_name
       @instances = 1
-      @hash_slice_length = hash_slice_length
       yield self if block_given?
     end
 
     def name=(val)
-      name_will_change! unless val == @name
+      name_will_change! unless @name == val
       @name = val.chomp
     end
 
@@ -161,7 +122,7 @@ module FleetCaptain
         table.each do |section, directives|
           hash[section] = directives.each_with_object({}) { |k, memo|
             memo[k] = send(k.underscore)
-          }.compact
+          }.select { |k,v| true if v.present? }
         end
       }.select { |k,v| true if v.present? }
     end
@@ -170,18 +131,14 @@ module FleetCaptain
       to_service_def.to_unit['Raw']
     end
 
-    def to_service_def
-      Fleet::ServiceDefinition.new(@name + '.service', to_hash)
-    end
-
-    def attributes
-      FleetCaptain.available_methods.each.with_object({}) { |method, memo|
-        memo[method] = send(method)
-      }.delete_if { |_, v| v.blank? }
-    end
-
     def unit_hash
       Digest::SHA1.hexdigest(to_unit)
+    end
+
+    private
+    
+    def to_service_def
+      Fleet::ServiceDefinition.new(@name + '.service', to_hash)
     end
 
     def to_command(command, failable = false)

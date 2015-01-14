@@ -6,17 +6,17 @@ describe FleetCaptain::Service do
     Description=The box of comparison.
     After=docker.service
     Requires=docker.service
-    
+
     [Service]
     ExecStart=/bin/bash test 1
     UNIT_FILE
   }
-  
+
   let(:service1) { FleetCaptain::Service.from_unit('compbox1', unit_text) }
 
   describe 'equality tests' do
     let(:service2) { FleetCaptain::Service.from_unit('compbox1', unit_text) }
-    
+
     describe '#==' do
       it 'is equal because they have the same unit file context' do
         expect(service1).to eq service2
@@ -30,10 +30,24 @@ describe FleetCaptain::Service do
     end
   end
 
+  describe '#to_unit' do
+    it 'is equal to the unit file' do
+      expect(service1.to_unit).to eq unit_text
+    end
+  end
+
+
+  describe '#unit_hash' do
+    it 'is the hash of the unit file' do
+      expect(service1.unit_hash).to eq Digest::SHA1.hexdigest(unit_text)
+    end
+  end
+
+
   describe '#attribute=' do
     it 'converts to a command on assignment' do
       service1.start = :run
-      expect(service1.start).to eq ['/usr/bin/docker run --name compbox1-345ae87']
+      expect(service1.start).to eq ['/usr/bin/docker run --name compbox1-8b1ea1a']
     end
 
     it 'triggers change on assignment' do
@@ -47,8 +61,8 @@ describe FleetCaptain::Service do
       service1.before_start_concat :stop
       service1.before_start_concat :run
       expect(service1.before_start).to eq [
-        '/usr/bin/docker stop compbox1-345ae87',
-        '/usr/bin/docker run --name compbox1-345ae87'
+        '/usr/bin/docker stop compbox1-8b1ea1a',
+        '/usr/bin/docker run --name compbox1-8b1ea1a'
       ]
     end
 
@@ -78,7 +92,7 @@ describe FleetCaptain::Service do
   describe '#container_name' do
     context 'when not a template container' do
       it 'returns a container name with the hash in the name' do
-        expect(service1.container_name).to eq 'compbox1-345ae87'
+        expect(service1.container_name).to eq 'compbox1-8b1ea1a'
       end
     end
 
@@ -88,7 +102,7 @@ describe FleetCaptain::Service do
       before { service2.instances = 2 }
 
       it 'returns a container with the hash and a instance identifier' do
-        expect(service2.container_name).to eq 'compbox1-345ae87-%i'
+        expect(service2.container_name).to eq 'compbox1-8b1ea1a-%i'
       end
     end
   end
@@ -97,7 +111,7 @@ describe FleetCaptain::Service do
   describe '#failable_attribute=' do
     it 'prefixes the compiled command with a dash' do
       service1.failable_before_start = :stop
-      expect(service1.before_start).to eq ['-/usr/bin/docker stop compbox1-345ae87']
+      expect(service1.before_start).to eq ['-/usr/bin/docker stop compbox1-8b1ea1a']
     end
   end
 
@@ -106,8 +120,8 @@ describe FleetCaptain::Service do
       service1.failable_before_start_concat :stop
       service1.failable_before_start_concat :rm
       expect(service1.before_start).to eq [
-        '-/usr/bin/docker stop compbox1-345ae87',
-        '-/usr/bin/docker rm compbox1-345ae87',
+        '-/usr/bin/docker stop compbox1-8b1ea1a',
+        '-/usr/bin/docker rm compbox1-8b1ea1a',
       ]
     end
   end
@@ -135,13 +149,38 @@ describe FleetCaptain::Service do
   end
 
 
-  describe '#to_command'
-  describe '#to_hash'
-  describe '#to_service_def'
-  describe '#to_unit'
-  describe '#unit_hash'
+  describe '#to_hash' do
+    subject { service1.to_hash }
 
-  describe '.define_attributes'
+    let(:expected_hash) {
+        {  "Unit" =>
+          {
+            "Description" => "The box of comparison.",
+            "After" => ["docker.service"],
+            "Requires" => ["docker.service"]
+          },
+            "Service" => { "ExecStart" => ["/bin/bash test 1"] },
+      }
+    }
+
+    
+    it { is_expected.to have_key('Unit') }
+    it { is_expected.to have_key('Service') }
+    it { is_expected.to_not have_key('X-Fleet') }
+
+    it { is_expected.to eq expected_hash }
+
+    context 'when there are three sections' do
+      before do 
+        service1.conflicts_concat 'service2.service'
+      end
+      
+      it { is_expected.to have_key('X-Fleet') }
+    end
+
+  end
+
+
   describe '.from_unit'
   describe '.services'
 end
