@@ -1,14 +1,17 @@
 require 'set'
 require 'securerandom'
-require 'fleet_captain/commands/docker'
-require 'fleet_captain/commands/parser'
 require 'active_support/configurable'
 require 'active_support/core_ext/hash'
 require 'active_support/core_ext/module/aliasing'
 require 'active_support/core_ext/class/attribute'
 require 'active_model/attribute_methods'
 require 'active_model/dirty'
+
 require 'fleet'
+
+require 'fleet_captain/commands/docker'
+require 'fleet_captain/commands/parser'
+require 'fleet_captain/service/attributes'
 
 module FleetCaptain
   class Service
@@ -18,17 +21,6 @@ module FleetCaptain
     include ActiveModel::Dirty
     include FleetCaptain::Service::Attributes
     include ActiveSupport::Configurable
-
-    # unit are assigned names based on the
-    # sha1-hash of their unit file. if you have enough
-    # unit files it's possible you can have a hash collision
-    # in the first part of that hash. you can increase
-    # this number if you find that happening.
-    config_accessor(:hash_slice_length) { 6 }
-    config_accessor(:container_type)    { 'docker' }
-
-    attr_accessor :container, :hash_slice_length, :instances
-    attr_reader :name
 
     def self.services
       @services ||= Set.new
@@ -42,9 +34,22 @@ module FleetCaptain
       self[key] or raise ServiceNotFound
     end
 
-    def self.from_unit(name, text)
-      FleetCaptain::UnitFile.parse(name, text)
+    def self.from_unit(name: 'Unnamed', text:)
+      FleetCaptain::UnitFile.parse(text, name)
     end
+
+    # unit are assigned names based on the
+    # sha1-hash of their unit file. if you have enough
+    # unit files it's possible you can have a hash collision
+    # in the first part of that hash. you can increase
+    # this number if you find that happening.
+    config_accessor(:hash_slice_length) { 6 }
+    config_accessor(:container_type)    { 'docker' }
+
+    attr_accessor :container, :instances
+    attr_reader :name
+
+    define_attribute_methods(:name)
 
     attribute_method_suffix '_concat'
     attribute_method_suffix '_multiple?'
@@ -62,8 +67,7 @@ module FleetCaptain
     alias_attribute :reload,        :exec_reload
     alias_attribute :stop,          :exec_stop
     alias_attribute :after_stop,    :exec_stop_post
-    
-    
+
     def initialize(service_name)
       @name = service_name
       @instances = 1
@@ -78,13 +82,17 @@ module FleetCaptain
     def container_name
       return @container_name if @container_name
 
-      name_hash = unit_hash[0..hash_slice_length]
+      name_hash = unit_hash[0..config.hash_slice_length]
 
       @container_name = if template?
         [name.chomp("@"), '-', name_hash, "-%i"].join
       else
         [name, '-', name_hash].join
       end
+    end
+
+    def service_name
+      name + '.service'
     end
 
     def container_type
@@ -135,11 +143,11 @@ module FleetCaptain
       Digest::SHA1.hexdigest(to_unit)
     end
 
-    private
-    
     def to_service_def
-      Fleet::ServiceDefinition.new(@name + '.service', to_hash)
+      Fleet::ServiceDefinition.new(service_name, to_hash)
     end
+
+    private
 
     def to_command(command, failable = false)
       FleetCaptain::Commands::Parser.new(self, command, failable: failable).to_command

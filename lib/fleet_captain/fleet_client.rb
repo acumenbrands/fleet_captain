@@ -2,47 +2,103 @@ require 'fleet'
 require 'forwardable'
 require 'net/ssh'
 require 'thread'
+require 'addressable/uri'
+require 'monitor'
 
 module FleetCaptain
   class FleetClient
     class ConnectionError < StandardError; end
     class ServiceNotRegistered < StandardError; end
 
-    extend Forwardable
+    class ConnectionControl
+      include MonitorMixin
 
-    attr_reader :client, :queue, :cluster
+      def ready!
+        synchronize do
+          @ready = true
+        end
+      end
+
+      def ready?
+        synchronize do
+          @ready
+        end
+      end
+
+      def stop!
+        synchronize do
+          @stop = true
+        end
+      end
+
+      def stop?
+        synchronize do
+          @stop
+        end
+      end
+
+      def clean?
+        synchronize do
+          @clean
+        end
+      end
+
+      def clean!
+        synchronize do
+          @clean = true
+        end
+      end
+
+      def reset
+        synchronize do
+          @ready = false
+          @stop = false
+          @clean = false
+        end
+      end
+    end
+
+    attr_reader :client, :queue, :cluster, :host, :connection
 
     def initialize(cluster, fleet_endpoint: "http://localhost:10001",
                             key_file: '~/.ssh/id_rsa')
-      @cluster  = cluster 
-      @client   = Fleet.new(fleet_api_url: fleet_endpoint, adapter: :excon)
-      @key_file = key_file
-      @queue    = Queue.new
+      @cluster    = cluster 
+      @client     = Fleet.new(fleet_api_url: fleet_endpoint, adapter: :excon)
+      @key_file   = key_file
+      @connection = ConnectionControl.new
     end
 
     # Parse out the name of the lead instance for direct connections.
     #
     def actual
       return @actual if @actual
-      connect(instances.first.public_dns_name)
-      lead_instance = instances.find { |instance|
-        lead_machine['clientURL'].include? instance.private_ip_address
-      }
-      lead_instance.public_dns_name
+      connect(instance_ips.values.first)
+      @actual = instance_ips[lead_machine_ip]
     end
 
-    def instances
-      @instances ||= FleetCaptain.cloud_client.new(cluster).instances
+    def connect_to_actual
+      unless connected_to_actual?
+        disconnect_ssh_tunnel!
+        connect(actual)
+      end
+    end
+
+    def connected_to_actual?
+      @host == actual
+    end
+
+    def instance_ips
+      @instances ||= FleetCaptain.cloud_client.new(cluster).ip_addresses
     end
 
     def connect(host = @actual)
       begin
         establish_ssh_tunnel!(host)
-        loop until queue.pop
-      rescue Exception
+        loop until connection.ready?
+      rescue Exception => e
         # Yes I really want a rescue Exception here as Queue raises a Fatal
         # if there are no other threads.
-        raise ConnectionError, "SSH Connection Error to Fleet actual"
+        raise ConnectionError, "SSH Connection Error to Fleet actual (because #{e})"
       end
 
       @connected = true
@@ -55,21 +111,30 @@ module FleetCaptain
 
     def destroy(service)
       connect unless connected?
-      @client.destroy(service.name + ".service")
+      @client.destroy(service.service_name)
     end
 
     def disconnect_ssh_tunnel!
-      @tunnel.kill
+      if @tunnel
+        connection.stop!
+        loop until connection.clean?
+        connection.reset
+      end
       @connected = false
     end
 
     def establish_ssh_tunnel!(host = @actual)
+      @host   = host
+      Thread.abort_on_exception = true
       @tunnel = Thread.new do
         session = Net::SSH.start(host, 'core', keys: @key_file)
         session.forward.local(10001, "localhost", 4001)
         session.forward.local(10002, "localhost", 7001)
-        queue << :ready
-        session.loop { true }
+        connection.ready!
+        session.loop { break if connection.stop?; true }
+        session.forward.cancel_local(10001)
+        session.forward.cancel_local(10002)
+        connection.clean!
       end
     end
 
@@ -80,11 +145,12 @@ module FleetCaptain
 
     # Get the machine list from the etcd cluster
     #
-    def lead_machine
+    def lead_machine_ip
       return @lead_machine if @lead_machine
       res           = Faraday.new(url: 'http://localhost:10002').get('/v2/admin/machines')
       machines      = JSON.parse(res.body)
-      @lead_machine = machines.find { |machine| machine.fetch('state', nil) == 'leader' }
+      machine_spec  = machines.find { |machine| machine.fetch('state', nil) == 'leader' }
+      @lead_machine = Addressable::URI.parse(machine_spec['clientURL']).host
     end
 
     def list
@@ -128,7 +194,7 @@ module FleetCaptain
     #
     def nuke!
       list.each do |service|
-        service_name = service.name + ".service"
+        service_name = service.service_name
         @client.stop(service_name)
         @client.unload(service_name)
         @client.destroy(service_name)
@@ -143,7 +209,7 @@ module FleetCaptain
     #
     def start(service)
       connect unless connected?
-      @client.start(service.name + ".service")
+      @client.start(service.service_name)
       true
     end
 
@@ -151,7 +217,7 @@ module FleetCaptain
     #
     def stop(service)
       connect unless connected?
-      @client.stop(service.name + ".service")
+      @client.stop(service.service_name)
       true
     end
 
@@ -162,9 +228,14 @@ module FleetCaptain
     # if something went wrong.
     #
     def submit(service)
-      connect unless connected?
-      @client.load(service.name + '.service', service.to_service_def)
+      connect_to_actual unless connected_to_actual?
+      @client.load(service.service_name, service.to_service_def)
       true
+    end
+
+    def submit!(service)
+      submit(service)
+      loop until loaded?(service)
     end
 
     # This method also returns true instead of a (probably more useful)
@@ -174,7 +245,7 @@ module FleetCaptain
     #
     def unload(service)
       connect unless connected?
-      @client.unload(service.name + ".service")
+      @client.unload(service.service_name)
       true
     end
 
@@ -183,7 +254,7 @@ module FleetCaptain
     def check_status(service, key, status)
       connect unless connected?
       begin
-        status_response = @client.status(service.name + '.service')
+        status_response = @client.status(service.service_name)
         status_response.fetch(key, 'unknown') == status
       rescue Fleet::NotFound
         false
@@ -199,7 +270,7 @@ module FleetCaptain
         unit_text = JSON.parse("[#{unit_text}]").first
       end
 
-      FleetCaptain::Service.from_unit(unit_text)
+      FleetCaptain::Service.from_unit(text: unit_text)
     end
 
   end

@@ -3,6 +3,10 @@ require 'vcr'
 
 Dir[File.join(__dir__, "support/**/*.rb")].each { |f| require f }
 
+ENV['DOCKER_HOST'] = 'http://192.168.59.103:2376'
+ENV['DOCKER_CERT_PATH'] = '/Users/you/.boot2docker/certs/boot2docker-vm'
+ENV['FLEET_HOST'] = 'ec2-54-146-31-143.compute-1.amazonaws.com'
+
 VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.hook_into :excon, :faraday, :webmock

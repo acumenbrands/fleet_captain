@@ -40,7 +40,12 @@ module FleetCaptain
         when String, Symbol
           yield(HashOptions.new(command.to_s))
         when Hash
-          yield HashOptions.create(k => args)
+          # Array wrap implicitly converts hashes to arrays.  not what we
+          # want so do it by hand.
+          
+          command.map { |k, args| 
+            yield HashOptions.create(k => args)
+          }
         end
       end
     end

@@ -1,0 +1,774 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/8ddfa751bccf5ced062fc26f05459c224ad83c2d?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Raw%22%3A%22%5BUnit%5D%5CnDescription%3DImagine+bash+returning+false+on+a+human+face+forever.%5CnAfter%3Ddocker.service%5CnRequires%3Ddocker.service%5Cn%5Cn%5BService%5D%5CnExecStart%3D%2Fusr%2Fbin%2Fdocker+run+--name+falsebox-cb3b5d0+%2Fbin%2Fbash+false%5Cn%22%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531075'
+      X-Raft-Index:
+      - '11444719'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:32:22 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/unit/8ddfa751bccf5ced062fc26f05459c224ad83c2d","value":"{\"Raw\":\"[Unit]\\nDescription=Imagine
+        bash returning false on a human face forever.\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name falsebox-cb3b5d0 /bin/bash false\\n\"}","modifiedIndex":1531075,"createdIndex":1531075}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:21 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/falsebox.service/object?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Name%22%3A%22falsebox.service%22%2C%22UnitHash%22%3A%5B141%2C223%2C167%2C81%2C188%2C207%2C92%2C237%2C6%2C47%2C194%2C111%2C5%2C69%2C156%2C34%2C74%2C216%2C60%2C45%5D%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 412
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531075'
+      Date:
+      - Tue, 27 Jan 2015 19:32:22 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":105,"message":"Key already exists","cause":"/_coreos.com/fleet/job/falsebox.service/object","index":1531075}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:22 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/falsebox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531076'
+      X-Raft-Index:
+      - '11444722'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:32:22 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/falsebox.service/target-state","value":"loaded","modifiedIndex":1531076,"createdIndex":1531076},"prevNode":{"key":"/_coreos.com/fleet/job/falsebox.service/target-state","value":"loaded","modifiedIndex":1499672,"createdIndex":1499672}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:22 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531076'
+      Date:
+      - Tue, 27 Jan 2015 19:32:22 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531076}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:22 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531076'
+      Date:
+      - Tue, 27 Jan 2015 19:32:22 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531076}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:22 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531076'
+      Date:
+      - Tue, 27 Jan 2015 19:32:22 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531076}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:22 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531076'
+      Date:
+      - Tue, 27 Jan 2015 19:32:22 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531076}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:22 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531076'
+      Date:
+      - Tue, 27 Jan 2015 19:32:22 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531076}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:22 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531076'
+      Date:
+      - Tue, 27 Jan 2015 19:32:23 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531076}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:22 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531077'
+      Date:
+      - Tue, 27 Jan 2015 19:32:23 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531077}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:23 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531077'
+      Date:
+      - Tue, 27 Jan 2015 19:32:23 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531077}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:23 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531077'
+      Date:
+      - Tue, 27 Jan 2015 19:32:23 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531077}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:23 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531078'
+      Date:
+      - Tue, 27 Jan 2015 19:32:23 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531078}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:23 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531078'
+      Date:
+      - Tue, 27 Jan 2015 19:32:23 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531078}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:23 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531078'
+      Date:
+      - Tue, 27 Jan 2015 19:32:23 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531078}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:23 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531078'
+      Date:
+      - Tue, 27 Jan 2015 19:32:23 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531078}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:23 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531078'
+      Date:
+      - Tue, 27 Jan 2015 19:32:23 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531078}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:23 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531078'
+      Date:
+      - Tue, 27 Jan 2015 19:32:24 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531078}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:23 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531078'
+      Date:
+      - Tue, 27 Jan 2015 19:32:24 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/falsebox.service","index":1531078}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:24 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531080'
+      X-Raft-Index:
+      - '11444730'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:32:24 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/falsebox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"inactive\",\"subState\":\"dead\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"8ddfa751bccf5ced062fc26f05459c224ad83c2d\"}","expiration":"2015-01-27T19:32:54.122308279Z","ttl":30,"modifiedIndex":1531079,"createdIndex":1531079}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:24 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/falsebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531080'
+      X-Raft-Index:
+      - '11444730'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:32:24 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/falsebox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"inactive\",\"subState\":\"dead\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"8ddfa751bccf5ced062fc26f05459c224ad83c2d\"}","expiration":"2015-01-27T19:32:54.122308279Z","ttl":30,"modifiedIndex":1531079,"createdIndex":1531079}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:24 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531080'
+      X-Raft-Index:
+      - '11444730'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:32:24 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/8ddfa751bccf5ced062fc26f05459c224ad83c2d","value":"{\"Raw\":\"[Unit]\\nDescription=Imagine
+        bash returning false on a human face forever.\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name falsebox-cb3b5d0 /bin/bash false\\n\"}","modifiedIndex":1531075,"createdIndex":1531075}],"modifiedIndex":633,"createdIndex":633}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:24 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531081'
+      X-Raft-Index:
+      - '11444731'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:32:24 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/Unnamed.service/target-state","value":"loaded","modifiedIndex":1531081,"createdIndex":1531081}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:24 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=inactive
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531082'
+      X-Raft-Index:
+      - '11444733'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:32:24 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/Unnamed.service/target-state","value":"inactive","modifiedIndex":1531082,"createdIndex":1531082},"prevNode":{"key":"/_coreos.com/fleet/job/Unnamed.service/target-state","value":"loaded","modifiedIndex":1531081,"createdIndex":1531081}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:24 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service?dir=false&recursive=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531083'
+      X-Raft-Index:
+      - '11444734'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:32:25 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/job/Unnamed.service","dir":true,"modifiedIndex":1531083,"createdIndex":1531081},"prevNode":{"key":"/_coreos.com/fleet/job/Unnamed.service","dir":true,"modifiedIndex":1531081,"createdIndex":1531081}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:24 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/8ddfa751bccf5ced062fc26f05459c224ad83c2d?dir=false&recursive=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531085'
+      X-Raft-Index:
+      - '11444736'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:32:25 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/unit/8ddfa751bccf5ced062fc26f05459c224ad83c2d","modifiedIndex":1531085,"createdIndex":1531075},"prevNode":{"key":"/_coreos.com/fleet/unit/8ddfa751bccf5ced062fc26f05459c224ad83c2d","value":"{\"Raw\":\"[Unit]\\nDescription=Imagine
+        bash returning false on a human face forever.\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name falsebox-cb3b5d0 /bin/bash false\\n\"}","modifiedIndex":1531075,"createdIndex":1531075}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:32:25 GMT
+recorded_with: VCR 2.9.3

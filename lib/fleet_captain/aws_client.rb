@@ -44,7 +44,7 @@ module FleetCaptain
     end
 
     def ip_addresses
-      instances.each.with_object({}) { |i, memo|
+      instances.to_a.each.with_object({}) { |i, memo|
         memo[i.private_ip_address] = i.public_ip_address
       } 
     end

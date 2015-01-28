@@ -6,4 +6,5 @@ gemspec
 gem 'docker-api', github: 'swipely/docker-api', branch: 'master'
 gem 'pry'
 gem 'pry-byebug'
+gem 'pry-rescue'
 gem 'pry-stack_explorer'

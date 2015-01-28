@@ -1,4 +1,4 @@
-require 'activesupport/concern'
+require 'active_support/concern'
 
 module FleetCaptain
   class Service
@@ -6,7 +6,7 @@ module FleetCaptain
       extend ActiveSupport::Concern
 
       module ClassMethods
-        def self.define_attributes(methods)
+        def define_attributes(methods)
           methods.each do |directive|
             method_name = directive.underscore
             define_attribute_methods(method_name)
@@ -39,7 +39,7 @@ module FleetCaptain
         end
 
         if attribute_multiple?(attr)
-          instance_variable_set "@#{attr}", [new_value]
+          instance_variable_set "@#{attr}", Array.wrap(new_value)
         else
           instance_variable_set "@#{attr}", new_value
         end
@@ -58,8 +58,11 @@ module FleetCaptain
       end
 
       def attributes
-        FleetCaptain.available_methods.each.with_object({}) { |method, memo|
-          memo[method] = send(method)
+        non_directive_attributes = { 'name' => @name }
+        FleetCaptain
+          .available_methods
+          .each.with_object(non_directive_attributes) { |method, memo|
+            memo[method] = send(method)
         }.delete_if { |_, v| v.blank? }
       end
     end

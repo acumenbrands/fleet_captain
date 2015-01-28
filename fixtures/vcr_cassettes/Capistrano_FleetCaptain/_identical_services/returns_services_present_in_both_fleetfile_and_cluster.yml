@@ -1,6 +1,35 @@
 ---
 http_interactions:
 - request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/11d1eba1e8ea551e08817fcec834d726f3fb328f?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Raw%22%3A%22%5BUnit%5D%5CnDescription%3DTrue+box%5CnAfter%3Ddocker.service%5CnRequires%3Ddocker.service%5Cn%5Cn%5BService%5D%5CnExecStart%3D%5B%5C%22%2Fusr%2Fbin%2Fdocker+run+--name+truebox-cb3b5d0+busybox+bin%2Fbash+true%5C%22%5D%5CnExecStartPre%3D%5B%5C%22%2Fusr%2Fbin%2Fdocker+kill+truebox-cb3b5d0%5C%22%2C+%5C%22%2Fusr%2Fbin%2Fdocker+rm+truebox-cb3b5d0%5C%22%2C+%5C%22%2Fusr%2Fbin%2Fdocker+pull+truebox-cb3b5d0%5C%22%5D%5CnExecStartPost%3D%5B%5C%22cap+fleet%3Aavailable%5B%25n%5D%5C%22%5D%5CnExecStop%3D%5B%5C%22%2Fusr%2Fbin%2Fdocker+stop+truebox-cb3b5d0%5C%22%5D%5CnExecStopPost%3D%5B%5C%22cap+fleet%3Aunavailable%5B%25n%5D%5C%22%5D%5Cn%22%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 307
+      message: 
+    headers:
+      Location:
+      - http://10.171.85.108:4001/v2/keys/_coreos.com/fleet/unit/11d1eba1e8ea551e08817fcec834d726f3fb328f?prevExist=false
+      Date:
+      - Mon, 26 Jan 2015 19:50:50 GMT
+      Content-Type:
+      - text/plain; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 26 Jan 2015 19:50:50 GMT
+- request:
     method: get
     uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
     body:
@@ -8,8 +37,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin13.0)
-        faraday/0.8.9 (excon)
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
       Accept:
       - application/json
   response:
@@ -20,23 +48,48 @@ http_interactions:
       Content-Type:
       - application/json
       X-Etcd-Index:
-      - "1648323"
+      - '2250086'
       X-Raft-Index:
-      - 6461196
+      - '11214296'
       X-Raft-Term:
-      - "11"
+      - '120'
       Date:
-      - Tue, 06 Jan 2015 14:37:27 GMT
+      - Mon, 26 Jan 2015 19:50:53 GMT
     body:
       encoding: UTF-8
-      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/be8d0bd9f6b854bd2bf018ced7a16c959678ec56","value":"\"[Unit]\\nDescription=True
-        box\\nName=truebox\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
-        run --name truebox-be8d0bd busybox bin/bash true\\nExecStartPre=/usr/bin/docker
-        kill truebox-be8d0bd\\nExecStartPre=/usr/bin/docker rm truebox-be8d0bd\\nExecStartPre=/usr/bin/docker
-        pull truebox-be8d0bd\\nExecStartPost=cap fleet:available[%n]\\nExecStop=/usr/bin/docker
-        stop truebox-be8d0bd\\nExecStopPost=cap fleet:unavailable[%n]\\n\"","modifiedIndex":1411726,"createdIndex":1411726},{"key":"/_coreos.com/fleet/unit/e55c0aeb44ba0b68004ceb8a200e685194448b45","value":"{\"Raw\":\"[Unit]\\nDescription=Hello
-        World\\n\\n[Service]\\nExecStart=/bin/bash -c \\\"while true; do echo \\\\\\\"Hello,
-        world\\\\\\\"; sleep 1; done\\\"\\n\"}","modifiedIndex":633,"createdIndex":633}],"modifiedIndex":633,"createdIndex":633}}'
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/68bdd7f3afaf8b73b7275ec9f2859fe062faee21","value":"{\"Raw\":\"[Unit]\\nDescription=Run
+        Box Run\\nName=runbox\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name runbox-1 busybox /bin/sh -c \\\"while true; do echo \\\\''Hit CTRL+C\\\\'';
+        sleep 1; done\\\"\\n\"}","modifiedIndex":2046150,"createdIndex":2046150}],"modifiedIndex":633,"createdIndex":633}}'
     http_version: 
-  recorded_at: Tue, 06 Jan 2015 14:37:27 GMT
+  recorded_at: Mon, 26 Jan 2015 19:50:53 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 307
+      message: 
+    headers:
+      Location:
+      - http://10.171.85.108:4001/v2/keys/_coreos.com/fleet/job/Unnamed.service/target-state
+      Date:
+      - Mon, 26 Jan 2015 19:50:53 GMT
+      Content-Type:
+      - text/plain; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 26 Jan 2015 19:50:53 GMT
 recorded_with: VCR 2.9.3

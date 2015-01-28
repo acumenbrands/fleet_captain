@@ -53,6 +53,14 @@ describe Capistrano::FleetCaptain do
 
   describe '#identical_services', :vcr do
     include_context 'ssh connection established'
+   
+    before do
+      fleet_client.submit(truebox)
+    end
+
+    after do
+      fleet_client.nuke!
+    end
     
     let(:truebox) { FleetCaptain::Service['truebox'] }
 

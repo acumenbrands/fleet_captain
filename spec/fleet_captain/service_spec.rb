@@ -12,10 +12,13 @@ describe FleetCaptain::Service do
     UNIT_FILE
   }
 
-  let(:service1) { FleetCaptain::Service.from_unit('compbox1', unit_text) }
+  describe '.from_unit'
+  describe '.services'
+
+  let(:service1) { FleetCaptain::Service.from_unit(name: 'compbox1', text: unit_text) }
 
   describe 'equality tests' do
-    let(:service2) { FleetCaptain::Service.from_unit('compbox1', unit_text) }
+    let(:service2) { FleetCaptain::Service.from_unit(name: 'compbox1', text: unit_text) }
 
     describe '#==' do
       it 'is equal because they have the same unit file context' do
@@ -31,8 +34,25 @@ describe FleetCaptain::Service do
   end
 
   describe '#to_unit' do
+    include_context 'units'
+
+    let(:falsebox_text) { <<-UNIT_FILE.strip_heredoc
+      [Unit]
+      Description=Imagine bash returning false on a human face forever.
+      After=docker.service
+      Requires=docker.service
+
+      [Service]
+      ExecStart=/usr/bin/docker run --name falsebox-cb3b5d0 /bin/bash false
+      UNIT_FILE
+    }
+
     it 'is equal to the unit file' do
       expect(service1.to_unit).to eq unit_text
+    end
+
+    it 'works on falsebox' do
+      expect(falsebox.to_unit).to eq falsebox_text
     end
   end
 
@@ -84,6 +104,7 @@ describe FleetCaptain::Service do
         'description' => 'The box of comparison.',
         'after'       => ['docker.service'],
         'requires'    => ['docker.service'],
+        'name'        => 'compbox1',
         'exec_start'  => ['/bin/bash test 1']
       })
     end
@@ -97,7 +118,7 @@ describe FleetCaptain::Service do
     end
 
     context 'when a template container' do
-      let(:service2) { FleetCaptain::Service.from_unit('compbox1', unit_text) }
+      let(:service2) { FleetCaptain::Service.from_unit(name: 'compbox1', text: unit_text) }
 
       before { service2.instances = 2 }
 
@@ -177,10 +198,5 @@ describe FleetCaptain::Service do
       
       it { is_expected.to have_key('X-Fleet') }
     end
-
   end
-
-
-  describe '.from_unit'
-  describe '.services'
 end

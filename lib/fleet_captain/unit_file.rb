@@ -1,7 +1,8 @@
 module FleetCaptain
   module UnitFile
     extend self
-    def parse(name = 'Unnamed', text)
+
+    def parse(text, name = 'Unnamed')
       text.each_line.with_object(FleetCaptain::Service.new(name)) do |line, service|
         directive, value = line.split('=')
         if FleetCaptain.available_directives.include? directive

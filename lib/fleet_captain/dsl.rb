@@ -41,7 +41,7 @@ module FleetCaptain
       attr_reader :service
 
       def self.build(name, &block)
-        service = FleetCaptain::Service.new(name, hash_slice_length: config.hash_slice_length)
+        service = FleetCaptain::Service.new(name)
         service.after             = 'docker.service'
         service.requires          = 'docker.service'
         service.exec_start_pre    = config.default_before_start

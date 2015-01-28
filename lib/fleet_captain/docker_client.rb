@@ -18,7 +18,7 @@ module FleetCaptain
         @local_docker.verify
 
         @local_docker
-      rescue
+      rescue StandardError
         raise FleetCaptain::DockerError, "couldn't connect to local docker"
       end
       

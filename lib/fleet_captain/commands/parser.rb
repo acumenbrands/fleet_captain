@@ -31,7 +31,13 @@ module FleetCaptain
       end
 
       def fail_prefix(command)
-        "#{ '-' if failable? }#{command}"
+        if command.respond_to? :map
+          command.map do |c|
+            "#{ '-' if failable? }#{c}"
+          end
+        else
+          "#{ '-' if failable? }#{command}"
+        end
       end
     end
   end

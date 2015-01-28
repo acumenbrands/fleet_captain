@@ -20,7 +20,7 @@ describe FleetCaptain::UnitFile do
     UNIT
     }
 
-    subject { FleetCaptain::UnitFile.parse('hello_world', unit_file) }
+    subject { FleetCaptain::UnitFile.parse(unit_file, name: 'hello_world') }
 
     it 'creates a FleetCaptain::Service object from a unit file' do
       is_expected.to be_a FleetCaptain::Service

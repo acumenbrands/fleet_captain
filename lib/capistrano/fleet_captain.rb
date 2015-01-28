@@ -81,10 +81,6 @@ module Capistrano
         cloud(:provision!, &block)
       end
 
-      def verify
-        container(:verify)
-      end
-
       def rollback_tag(production_tag, rollback_tag)
         images = container(:images)
 
@@ -92,6 +88,10 @@ module Capistrano
         production_image.tag(rollback_tag)
       end
 
+      def verify
+        container(:verify)
+      end
+ 
       def tag(image_id, tag)
         container(:tag, image_id, tag)
       end
@@ -126,7 +126,6 @@ module Capistrano
       def remote_service_names
         @remote_services_names ||= remote_services.map(&:name)
       end
-
     end
   end
 end

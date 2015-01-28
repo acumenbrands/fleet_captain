@@ -1,0 +1,1975 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/4eca63530edc2f5e9aa6921cd89f72a0104c7bfe?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Raw%22%3A%22%5BUnit%5D%5CnDescription%3DThe+box+which+runs%5CnAfter%3Ddocker.service%5CnRequires%3Ddocker.service%5Cn%5Cn%5BService%5D%5CnExecStart%3D%2Fusr%2Fbin%2Fdocker+run+--name+runbox-cb3b5d0+busybox+%2Fbin%2Fsh+-c+%5C%22while+true%3B+do+echo+%27Hit+CTRL%2BC%27%3B+sleep+1%3B+done%5C%22%5CnExecStartPre%3D-%2Fusr%2Fbin%2Fdocker+stop+runbox-cb3b5d0%5CnExecStartPre%3D-%2Fusr%2Fbin%2Fdocker+remove+runbox-cb3b5d0%5Cn%22%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531328'
+      X-Raft-Index:
+      - '11445517'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/unit/4eca63530edc2f5e9aa6921cd89f72a0104c7bfe","value":"{\"Raw\":\"[Unit]\\nDescription=The
+        box which runs\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name runbox-cb3b5d0 busybox /bin/sh -c \\\"while true; do echo ''Hit
+        CTRL+C''; sleep 1; done\\\"\\nExecStartPre=-/usr/bin/docker stop runbox-cb3b5d0\\nExecStartPre=-/usr/bin/docker
+        remove runbox-cb3b5d0\\n\"}","modifiedIndex":1531328,"createdIndex":1531328}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:49 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/runbox.service/object?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Name%22%3A%22runbox.service%22%2C%22UnitHash%22%3A%5B78%2C202%2C99%2C83%2C14%2C220%2C47%2C94%2C154%2C166%2C146%2C28%2C216%2C159%2C114%2C160%2C16%2C76%2C123%2C254%5D%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 412
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531328'
+      Date:
+      - Tue, 27 Jan 2015 19:36:49 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":105,"message":"Key already exists","cause":"/_coreos.com/fleet/job/runbox.service/object","index":1531328}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:49 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/runbox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531329'
+      X-Raft-Index:
+      - '11445520'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:49 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/runbox.service/target-state","value":"loaded","modifiedIndex":1531329,"createdIndex":1531329},"prevNode":{"key":"/_coreos.com/fleet/job/runbox.service/target-state","value":"launched","modifiedIndex":1531153,"createdIndex":1531153}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:49 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531330'
+      Date:
+      - Tue, 27 Jan 2015 19:36:49 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531330}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:49 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531330'
+      Date:
+      - Tue, 27 Jan 2015 19:36:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531330}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:49 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531330'
+      Date:
+      - Tue, 27 Jan 2015 19:36:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531330}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:50 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531330'
+      Date:
+      - Tue, 27 Jan 2015 19:36:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531330}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:50 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531330'
+      Date:
+      - Tue, 27 Jan 2015 19:36:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531330}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:50 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531330'
+      Date:
+      - Tue, 27 Jan 2015 19:36:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531330}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:50 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531330'
+      Date:
+      - Tue, 27 Jan 2015 19:36:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531330}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:50 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531330'
+      Date:
+      - Tue, 27 Jan 2015 19:36:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531330}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:50 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531330'
+      Date:
+      - Tue, 27 Jan 2015 19:36:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531330}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:50 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531331'
+      Date:
+      - Tue, 27 Jan 2015 19:36:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531331}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:50 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531331'
+      Date:
+      - Tue, 27 Jan 2015 19:36:51 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/runbox.service","index":1531331}
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:51 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531332'
+      X-Raft-Index:
+      - '11445525'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":30,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:51 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/runbox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=launched
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445528'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/runbox.service/target-state","value":"launched","modifiedIndex":1531334,"createdIndex":1531334},"prevNode":{"key":"/_coreos.com/fleet/job/runbox.service/target-state","value":"loaded","modifiedIndex":1531329,"createdIndex":1531329}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:51 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445528'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":30,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:51 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445528'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":30,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:51 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445528'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":30,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:51 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445529'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":30,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:51 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445529'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:51 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":30,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:51 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445529'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":30,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:51 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445529'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":29,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:52 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445530'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":29,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:52 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531334'
+      X-Raft-Index:
+      - '11445530'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":29,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:52 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445532'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":29,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:52 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445532'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":29,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:52 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445533'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":29,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:52 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445533'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":29,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:52 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445533'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:52 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":29,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:52 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445533'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":29,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:52 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445533'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":28,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:53 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445534'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":28,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:53 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445534'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":28,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:53 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445534'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":28,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:53 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445534'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":28,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:53 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445535'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":28,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:53 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445535'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":28,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:53 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445535'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":28,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:53 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445535'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":28,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:54 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445536'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":27,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:54 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531336'
+      X-Raft-Index:
+      - '11445536'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":27,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:54 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531337'
+      X-Raft-Index:
+      - '11445537'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":27,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:54 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531337'
+      X-Raft-Index:
+      - '11445537'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":27,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:54 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531337'
+      X-Raft-Index:
+      - '11445537'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":27,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:54 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531337'
+      X-Raft-Index:
+      - '11445538'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":27,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:54 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531337'
+      X-Raft-Index:
+      - '11445538'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:54 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":27,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:54 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531337'
+      X-Raft-Index:
+      - '11445538'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":27,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:54 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531338'
+      X-Raft-Index:
+      - '11445539'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":26,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:55 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531338'
+      X-Raft-Index:
+      - '11445540'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:21.120585327Z","ttl":26,"modifiedIndex":1531332,"createdIndex":1531332}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:55 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531340'
+      X-Raft-Index:
+      - '11445542'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:25.325107741Z","ttl":30,"modifiedIndex":1531339,"createdIndex":1531339}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:55 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531340'
+      X-Raft-Index:
+      - '11445542'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:25.325107741Z","ttl":30,"modifiedIndex":1531339,"createdIndex":1531339}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:55 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531340'
+      X-Raft-Index:
+      - '11445542'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:25.325107741Z","ttl":30,"modifiedIndex":1531339,"createdIndex":1531339}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:55 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531340'
+      X-Raft-Index:
+      - '11445543'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:25.325107741Z","ttl":30,"modifiedIndex":1531339,"createdIndex":1531339}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:55 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531340'
+      X-Raft-Index:
+      - '11445543'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:55 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:25.325107741Z","ttl":30,"modifiedIndex":1531339,"createdIndex":1531339}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:55 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531340'
+      X-Raft-Index:
+      - '11445543'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:25.325107741Z","ttl":30,"modifiedIndex":1531339,"createdIndex":1531339}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:55 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531342'
+      X-Raft-Index:
+      - '11445545'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:25.325107741Z","ttl":30,"modifiedIndex":1531339,"createdIndex":1531339}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:56 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531342'
+      X-Raft-Index:
+      - '11445546'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:25.325107741Z","ttl":29,"modifiedIndex":1531339,"createdIndex":1531339}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:56 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/runbox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531343'
+      X-Raft-Index:
+      - '11445547'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:36:56 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/state/runbox.service","value":"{\"loadState\":\"loaded\",\"activeState\":\"deactivating\",\"subState\":\"stop-sigterm\",\"machineState\":{\"ID\":\"28124cbd34ec4bf8b6937c2b477a5a87\",\"PublicIP\":\"\",\"Metadata\":null,\"Version\":\"\"},\"unitHash\":\"4eca63530edc2f5e9aa6921cd89f72a0104c7bfe\"}","expiration":"2015-01-27T19:37:25.325107741Z","ttl":29,"modifiedIndex":1531339,"createdIndex":1531339}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:36:56 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531597'
+      X-Raft-Index:
+      - '11446367'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:41:39 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/4eca63530edc2f5e9aa6921cd89f72a0104c7bfe","value":"{\"Raw\":\"[Unit]\\nDescription=The
+        box which runs\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name runbox-cb3b5d0 busybox /bin/sh -c \\\"while true; do echo ''Hit
+        CTRL+C''; sleep 1; done\\\"\\nExecStartPre=-/usr/bin/docker stop runbox-cb3b5d0\\nExecStartPre=-/usr/bin/docker
+        remove runbox-cb3b5d0\\n\"}","modifiedIndex":1531328,"createdIndex":1531328}],"modifiedIndex":633,"createdIndex":633}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:41:39 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531598'
+      X-Raft-Index:
+      - '11446369'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:41:39 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/Unnamed.service/target-state","value":"loaded","modifiedIndex":1531598,"createdIndex":1531598}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:41:39 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=inactive
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531599'
+      X-Raft-Index:
+      - '11446370'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:41:40 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/Unnamed.service/target-state","value":"inactive","modifiedIndex":1531599,"createdIndex":1531599},"prevNode":{"key":"/_coreos.com/fleet/job/Unnamed.service/target-state","value":"loaded","modifiedIndex":1531598,"createdIndex":1531598}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:41:39 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/Unnamed.service?dir=false&recursive=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531601'
+      X-Raft-Index:
+      - '11446372'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:41:40 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/job/Unnamed.service","dir":true,"modifiedIndex":1531601,"createdIndex":1531598},"prevNode":{"key":"/_coreos.com/fleet/job/Unnamed.service","dir":true,"modifiedIndex":1531598,"createdIndex":1531598}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:41:40 GMT
+- request:
+    method: delete
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/4eca63530edc2f5e9aa6921cd89f72a0104c7bfe?dir=false&recursive=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1531602'
+      X-Raft-Index:
+      - '11446374'
+      X-Raft-Term:
+      - '123'
+      Date:
+      - Tue, 27 Jan 2015 19:41:40 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"delete","node":{"key":"/_coreos.com/fleet/unit/4eca63530edc2f5e9aa6921cd89f72a0104c7bfe","modifiedIndex":1531602,"createdIndex":1531328},"prevNode":{"key":"/_coreos.com/fleet/unit/4eca63530edc2f5e9aa6921cd89f72a0104c7bfe","value":"{\"Raw\":\"[Unit]\\nDescription=The
+        box which runs\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name runbox-cb3b5d0 busybox /bin/sh -c \\\"while true; do echo ''Hit
+        CTRL+C''; sleep 1; done\\\"\\nExecStartPre=-/usr/bin/docker stop runbox-cb3b5d0\\nExecStartPre=-/usr/bin/docker
+        remove runbox-cb3b5d0\\n\"}","modifiedIndex":1531328,"createdIndex":1531328}}'
+    http_version: 
+  recorded_at: Tue, 27 Jan 2015 19:41:40 GMT
+recorded_with: VCR 2.9.3
