@@ -19,9 +19,11 @@ RSpec.configure do |c|
   c.before(:example, live: true) do
     VCR.eject_cassette
     VCR.turn_off!
+    WebMock.disable!
   end
 
   c.after(:example, live: true) do
     VCR.turn_on!
+    WebMock.enable!
   end
 end

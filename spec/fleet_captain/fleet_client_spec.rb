@@ -15,16 +15,26 @@ describe FleetCaptain::FleetClient do
       [Service]
       ExecStart=/bin/bash -c "while true; do echo \\\"Hello, world\\\"; sleep 1; done"
       UNIT
-                                     )
+      )
     }
 
     after do |example|
-      require 'pry'; binding.pry
+      next unless example.metadata[:live] || VCR.current_cassette.send(:previously_recorded_interactions).empty?
+
+      VCR.eject_cassette
+      VCR.turn_off!
+      WebMock.disable!
       subject.nuke!
+      WebMock.enable! 
+      VCR.turn_on!
     end
 
     it 'connects to the fleet actual via ssh tunnel', :vcr do
       expect(fleet_client.list.first).to eq expected_unit
+    end
+
+    describe '#live_nuke', :live do
+      it('nukes') { true }
     end
 
     describe '#nuke', :vcr do
@@ -93,13 +103,25 @@ describe FleetCaptain::FleetClient do
       end
     end
 
-    describe 'exists?', :live do
-      include_context 'units'
+    describe 'exists?', :vcr do
+      context 'for a loaded unit' do
+        before do
+          subject.submit(truebox)
+        end
 
-      context 'it returns true for loaded or running unit' do
         it 'returns true' do
-          require 'pry'; binding.pry
-          #subject.exists?(truebox)
+          expect(subject.exists?(truebox)).to be true
+        end
+      end
+
+      context 'for a running unit' do
+        before do
+          subject.submit!(runbox)
+          subject.start!(runbox)
+        end
+
+        it 'returns true' do
+          expect(subject.exists?(runbox)).to be true
         end
       end
     end
@@ -112,7 +134,7 @@ describe FleetCaptain::FleetClient do
         end
 
         it 'is true' do
-          expect { subject.running?(runbox) }.to become(true).within(5)
+          expect { subject.running?(runbox) }.to become(true).within(10)
         end
       end
 
@@ -174,6 +196,74 @@ describe FleetCaptain::FleetClient do
   describe 'actual', :vcr do
     it 'dynamically determines the etcd cluster leader' do
       expect(fleet_client.actual).to eq '54.146.31.143'
+    end
+  end
+
+  
+  describe '#check_status' do
+    let(:fleet_client) { FleetCaptain::FleetClient.new('Test-Stack', key_file: '~/.ssh/id_rsa.pub') }
+    include_context 'units'
+
+    let(:status_report) { 
+      {  
+         load_state:    "loaded",
+         active_state:  "failed",
+         sub_state:     "failed",
+         unit_hash:     "7a45c171fe9464bc0c98ed8865d2147d0e505507",
+         machine_state:
+           {  
+              "ID"       => "28124cbd34ec4bf8b6937c2b477a5a87",
+              "PublicIP" => "",
+              "Metadata" => nil,
+              "Version"  => "" 
+           }
+      }
+    }
+
+    before do
+      allow(fleet_client).to receive(:connected?).and_return(true)
+      allow(fleet_client.client).to receive(:status).and_return(status_report)
+    end
+
+    subject { fleet_client.send(:check_status, runbox, status_query) }
+
+    context 'when the status is a single state thing' do
+      let(:status_query) { { load_state: 'loaded' } }
+
+      it 'only checks that' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'when the status is composed state thing' do
+      let(:status_query) { { active_state: 'active', sub_state: 'running' } }
+      
+      it 'checks both of them' do
+        status_report.merge!(active_state: 'active', sub_state: 'running')
+        expect(subject).to be true
+      end
+    end
+
+    context 'when the status include a failure' do
+      let(:status_query) { { load_state: 'loaded' } }
+      
+      context 'when it is not relevant' do
+        it 'is true' do
+          expect(subject).to be true
+        end
+      end
+
+      context 'when it is relevant' do
+        before do
+          allow(fleet_client).to receive(:journal).and_return('something wrong')
+        end
+      
+        let(:status_query) { { load_state: 'loaded', active_state: 'active' } }
+
+        it 'raises an exception' do
+          expect{ subject }.to raise_error FleetCaptain::FleetClient::FleetErrorStatus, "something wrong"
+        end
+      end
     end
   end
 end

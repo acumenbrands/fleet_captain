@@ -12,7 +12,7 @@ shared_context 'units' do
       s.requires = 'docker.service'
       s.container = 'busybox'
       s.failable_before_start = :stop
-      s.failable_before_start_concat :remove
+      s.failable_before_start_concat :rm
       s.start = [run: '/bin/sh -c "while true; do echo \'Hit CTRL+C\'; sleep 1; done"']
       s.description = "The box which runs"
     end

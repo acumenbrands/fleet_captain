@@ -1,0 +1,165 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit/4524f73fa79d5509682c888e666de87c9a999f73?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Raw%22%3A%22%5BUnit%5D%5CnDescription%3DThe+box+of+truth.%5CnAfter%3Ddocker.service%5CnRequires%3Ddocker.service%5Cn%5Cn%5BService%5D%5CnExecStart%3D%2Fusr%2Fbin%2Fdocker+run+--name+truebox-1+%2Fbin%2Fbash+true%5Cn%22%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1813047'
+      X-Raft-Index:
+      - '12866518'
+      X-Raft-Term:
+      - '131'
+      Date:
+      - Mon, 02 Feb 2015 21:41:08 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/unit/4524f73fa79d5509682c888e666de87c9a999f73","value":"{\"Raw\":\"[Unit]\\nDescription=The
+        box of truth.\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name truebox-1 /bin/bash true\\n\"}","modifiedIndex":1813047,"createdIndex":1813047}}'
+    http_version: 
+  recorded_at: Mon, 02 Feb 2015 21:41:08 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/truebox.service/object?prevExist=false
+    body:
+      encoding: US-ASCII
+      string: value=%7B%22Name%22%3A%22truebox.service%22%2C%22UnitHash%22%3A%5B69%2C36%2C247%2C63%2C167%2C157%2C85%2C9%2C104%2C44%2C136%2C142%2C102%2C109%2C232%2C124%2C154%2C153%2C159%2C115%5D%7D
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1813048'
+      X-Raft-Index:
+      - '12866519'
+      X-Raft-Term:
+      - '131'
+      Date:
+      - Mon, 02 Feb 2015 21:41:08 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"create","node":{"key":"/_coreos.com/fleet/job/truebox.service/object","value":"{\"Name\":\"truebox.service\",\"UnitHash\":[69,36,247,63,167,157,85,9,104,44,136,142,102,109,232,124,154,153,159,115]}","modifiedIndex":1813048,"createdIndex":1813048}}'
+    http_version: 
+  recorded_at: Mon, 02 Feb 2015 21:41:08 GMT
+- request:
+    method: put
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/job/truebox.service/target-state
+    body:
+      encoding: US-ASCII
+      string: value=loaded
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1813049'
+      X-Raft-Index:
+      - '12866520'
+      X-Raft-Term:
+      - '131'
+      Date:
+      - Mon, 02 Feb 2015 21:41:08 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"set","node":{"key":"/_coreos.com/fleet/job/truebox.service/target-state","value":"loaded","modifiedIndex":1813049,"createdIndex":1813049}}'
+    http_version: 
+  recorded_at: Mon, 02 Feb 2015 21:41:09 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/state/truebox.service?consistent=true&recursive=true&sorted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1813049'
+      Date:
+      - Mon, 02 Feb 2015 21:41:08 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        {"errorCode":100,"message":"Key not found","cause":"/_coreos.com/fleet/state/truebox.service","index":1813049}
+    http_version: 
+  recorded_at: Mon, 02 Feb 2015 21:41:09 GMT
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1813049'
+      X-Raft-Index:
+      - '12866521'
+      X-Raft-Term:
+      - '131'
+      Date:
+      - Mon, 02 Feb 2015 21:41:08 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"nodes":[{"key":"/_coreos.com/fleet/unit/4524f73fa79d5509682c888e666de87c9a999f73","value":"{\"Raw\":\"[Unit]\\nDescription=The
+        box of truth.\\nAfter=docker.service\\nRequires=docker.service\\n\\n[Service]\\nExecStart=/usr/bin/docker
+        run --name truebox-1 /bin/bash true\\n\"}","modifiedIndex":1813047,"createdIndex":1813047}],"modifiedIndex":1813047,"createdIndex":1813047}}'
+    http_version: 
+  recorded_at: Mon, 02 Feb 2015 21:41:09 GMT
+recorded_with: VCR 2.9.3

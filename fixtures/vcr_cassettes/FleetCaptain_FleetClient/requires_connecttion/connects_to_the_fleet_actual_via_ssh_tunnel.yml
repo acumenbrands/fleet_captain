@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:10001/v2/keys/_coreos.com/fleet/unit
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fleet/0.8.0 (ruby; 2.1.4p265; x86_64-darwin14.0) faraday/0.8.9 (excon)
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      X-Etcd-Index:
+      - '1806532'
+      X-Raft-Index:
+      - '12841554'
+      X-Raft-Term:
+      - '131'
+      Date:
+      - Mon, 02 Feb 2015 19:07:41 GMT
+    body:
+      encoding: UTF-8
+      string: '{"action":"get","node":{"key":"/_coreos.com/fleet/unit","dir":true,"modifiedIndex":1806092,"createdIndex":1806092}}'
+    http_version: 
+  recorded_at: Mon, 02 Feb 2015 19:07:41 GMT
+recorded_with: VCR 2.9.3

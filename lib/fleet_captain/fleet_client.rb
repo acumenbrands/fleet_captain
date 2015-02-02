@@ -4,65 +4,42 @@ require 'net/ssh'
 require 'thread'
 require 'addressable/uri'
 require 'monitor'
+require 'timeout'
+require 'sshkit'
+require 'sshkit/dsl'
+require 'active_support/configurable'
+
+require_relative 'fleet_client/connection_control'
+
+SSHKit::Backend::Netssh.configure do |ssh|
+  ssh.connection_timeout = 30
+  ssh.ssh_options = {
+    user: 'core',
+    keys: %w(/Users/prater/.ssh/bork-knife-ec2.pem),
+    forward_agent: false,
+    auth_methods: %w(publickey password)
+  }
+end
 
 module FleetCaptain
   class FleetClient
     class ConnectionError < StandardError; end
     class ServiceNotRegistered < StandardError; end
+    class FleetOperationError < StandardError; end
+    class FleetErrorStatus < StandardError; end
 
-    class ConnectionControl
-      include MonitorMixin
+    include SSHKit::DSL
+    include ActiveSupport::Configurable
 
-      def ready!
-        synchronize do
-          @ready = true
-        end
-      end
-
-      def ready?
-        synchronize do
-          @ready
-        end
-      end
-
-      def stop!
-        synchronize do
-          @stop = true
-        end
-      end
-
-      def stop?
-        synchronize do
-          @stop
-        end
-      end
-
-      def clean?
-        synchronize do
-          @clean
-        end
-      end
-
-      def clean!
-        synchronize do
-          @clean = true
-        end
-      end
-
-      def reset
-        synchronize do
-          @ready = false
-          @stop = false
-          @clean = false
-        end
-      end
+    config_accessor :fleet_timeout do
+      10
     end
 
     attr_reader :client, :queue, :cluster, :host, :connection
 
     def initialize(cluster, fleet_endpoint: "http://localhost:10001",
                             key_file: '~/.ssh/id_rsa')
-      @cluster    = cluster 
+      @cluster    = cluster
       @client     = Fleet.new(fleet_api_url: fleet_endpoint, adapter: :excon)
       @key_file   = key_file
       @connection = ConnectionControl.new
@@ -162,11 +139,11 @@ module FleetCaptain
     end
 
     def loaded?(service)
-      check_status(service, :load_state, 'loaded')
+      check_status(service, load_state: 'loaded')
     end
 
     def running?(service)
-      check_status(service, :active_state, 'active') && check_status(service, :sub_state, 'running')
+      check_status(service, active_state: 'active', sub_state: 'running')
     end
 
     # The node key has a nodes key, which has a list of machines.
@@ -193,13 +170,30 @@ module FleetCaptain
     # This actually nukes things.  Be so careful.
     #
     def nuke!
-      list.each do |service|
-        service_name = service.service_name
-        @client.stop(service_name)
-        @client.unload(service_name)
-        @client.destroy(service_name)
-        @client.delete_unit(service.unit_hash)
+      connect unless connected?
+
+      begin
+        list.each do |service|
+          service_name = service.service_name
+          @client.stop(service_name)
+          @client.unload(service_name)
+          @client.destroy(service_name)
+          @client.delete_unit(service.unit_hash)
+        end
+      rescue Fleet::NotFound
+        # i mean, you can nuke the wasteland all you want.
       end
+
+      res = Faraday.new(url: 'http://localhost:10001')
+      res.delete('/v2/keys/_coreos.com/fleet/job', recursive: true)
+      res.delete('/v2/keys/_coreos.com/fleet/unit', recursive: true)
+
+
+      on instance_ips.values do
+        execute "for i in $(docker ps -aq); do echo $i; done;"
+      end
+
+      true
     end
 
     # In this case the client is not an asynchronous response and so
@@ -211,6 +205,11 @@ module FleetCaptain
       connect unless connected?
       @client.start(service.service_name)
       true
+    end
+
+    def start!(service)
+      start(service)
+      sync_operation { running?(service) }
     end
 
     # As does this method.
@@ -235,7 +234,15 @@ module FleetCaptain
 
     def submit!(service)
       submit(service)
-      loop until loaded?(service)
+      sync_operation { loaded?(service) }
+    end
+
+    def journal(service)
+      status_response = @client.status(service.service_name)
+      require 'pry'; binding.pry
+      on actual do
+        capture("fleetctl journal #{service.name}")
+      end
     end
 
     # This method also returns true instead of a (probably more useful)
@@ -251,14 +258,36 @@ module FleetCaptain
 
     private
 
-    def check_status(service, key, status)
+    def sync_operation
+      begin
+        Timeout.timeout(config.fleet_timeout) do
+          loop until yield
+        end
+      rescue Timeout::Error
+        raise FleetOperationError, "Operation did not complete in #{config.fleet_timeout} seconds"
+      end
+    end
+
+    def check_status(service, **state)
       connect unless connected?
+
       begin
         status_response = @client.status(service.service_name)
-        status_response.fetch(key, 'unknown') == status
+        puts status_response
       rescue Fleet::NotFound
-        false
+        return false
       end
+
+
+      state.each_pair do |key, value|
+        if status_response[key] == 'failed'
+          raise FleetErrorStatus, journal(service)
+        elsif status_response[key] != value
+          return false
+        end
+      end
+
+      true
     end
 
     def service_from_unit(unit)
